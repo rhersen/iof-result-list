@@ -15,7 +15,8 @@
     "babel-loader": "^6.2.0",
     "babel-preset-es2015": "^6.3.13",
     "css-loader": "^0.23.1",
-    "lodash": "^4.11.1",
+    "lodash.frompairs": "^4.0.1",
+    "lodash.map": "^4.3.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.12.9"
   }

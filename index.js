@@ -1,13 +1,15 @@
-var _ = require('lodash')
+var fromPairs = require('lodash.frompairs')
+var map = require('lodash.map')
+
 require('./style.css')
 
 function getResult(doc) {
-  return _.fromPairs(_.map(doc.querySelectorAll('ClassResult'), pair))
+  return fromPairs(map(doc.querySelectorAll('ClassResult'), pair))
 
   function pair(classResult) {
     return [
       classResult.querySelector('Class Name').textContent,
-      _.map(classResult.querySelectorAll('PersonResult'), getPerson)
+      map(classResult.querySelectorAll('PersonResult'), getPerson)
     ]
   }
 
@@ -15,7 +17,7 @@ function getResult(doc) {
     var time = person.querySelector('Result > Time')
     var position = person.querySelector('Result > Position')
     return {
-      name: _.map(['Given', 'Family'], field => person.querySelector(`Person > Name > ${field}`).textContent).join(' '),
+      name: map(['Given', 'Family'], field => person.querySelector(`Person > Name > ${field}`).textContent).join(' '),
       position: position && position.textContent,
       time: getTime(time && time.textContent, person.querySelector('Result > Status').textContent),
       splits: getSplits(person.querySelectorAll('Result > SplitTime > Time'))
@@ -23,7 +25,7 @@ function getResult(doc) {
 
     function getSplits(splits) {
       var prevSeconds = 0
-      return _.map(_.map(splits, 'textContent'), lapTime)
+      return map(map(splits, 'textContent'), lapTime)
 
       function lapTime(splitSeconds) {
         var lapSeconds = splitSeconds - prevSeconds
@@ -68,7 +70,7 @@ function ajax(callback) {
 ajax(responseXml => {
   var root = document.getElementById('root')
 
-  _.map(getResult(responseXml), (persons, className) => {
+  map(getResult(responseXml), (persons, className) => {
     root.insertAdjacentHTML('beforeend',
       `<table>
          <caption>${className}</caption>
@@ -77,7 +79,7 @@ ajax(responseXml => {
   })
 
   function getPersons(persons) {
-    return _.map(persons, getPerson).join('')
+    return map(persons, getPerson).join('')
   }
 
   function getPerson(p) {
@@ -90,7 +92,7 @@ ajax(responseXml => {
   }
 
   function getSplits(splits) {
-    return _.map(splits, getSplit).join('')
+    return map(splits, getSplit).join('')
   }
 
   function getSplit(split) {
