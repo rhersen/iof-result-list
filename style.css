@@ -30,10 +30,6 @@ and (orientation: landscape) {
 
 @media only screen
 and (orientation: portrait) {
-  body {
-    font-size: 48px;
-  }
-
   table {
     width: 100%;
   }

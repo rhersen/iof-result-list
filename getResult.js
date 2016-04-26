@@ -1,13 +1,16 @@
-var fromPairs = require('lodash.frompairs')
+var assign = require('lodash.assign')
 var map = require('lodash.map')
 
-module.exports = doc => fromPairs(map(doc.querySelectorAll('ClassResult'), pair))
+module.exports = doc => assign.apply(assign, map(doc.querySelectorAll('ClassResult'), pair))
 
 function pair($classResult) {
-  return [
-    $classResult.querySelector('Class Name').textContent,
-    map($classResult.querySelectorAll('PersonResult'), getPerson)
-  ]
+  var key = $classResult.querySelector('Class Id').textContent
+  var r = {}
+  r[key] = {
+    name: $classResult.querySelector('Class Name').textContent,
+    persons: map($classResult.querySelectorAll('PersonResult'), getPerson)
+  }
+  return r
 
   function getPerson($person) {
     var $time = $person.querySelector('Result > Time')

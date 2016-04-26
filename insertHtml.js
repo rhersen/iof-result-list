@@ -7,11 +7,11 @@ module.exports = responseXml => {
 
   root.insertAdjacentHTML('beforeend', `<h1>${getEventName(responseXml)}</h1>`)
 
-  map(getResult(responseXml), (persons, className) => {
+  map(getResult(responseXml), value => {
     root.insertAdjacentHTML('beforeend',
       `<table>
-         <caption>${className}</caption>
-         <tbody>${getPersons(persons)}</tbody>
+         <caption>${value.name}</caption>
+         <tbody>${getPersons(value.persons)}</tbody>
        </table>`)
   })
 
