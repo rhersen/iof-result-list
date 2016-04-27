@@ -51,8 +51,11 @@ function getClass($classResult) {
       function getMmSs() {
         var seconds = totalSeconds % 60
         var minutes = (totalSeconds - seconds) / 60
-        var pad = seconds < 10 ? '0' : ''
-        return `${minutes}:${pad}${seconds}`
+        return `${pad(minutes, '&#8199;')}:${pad(seconds, '0')}`
+      }
+
+      function pad(n, c) {
+        return n < 10 ? c + n : n
       }
     }
   }
