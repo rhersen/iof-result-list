@@ -53,10 +53,10 @@ function getClass($classResult) {
       var seconds = totalSeconds % 60
       var minutes = (totalSeconds - seconds) / 60
       return `${pad(minutes, '&#8199;')}:${pad(seconds, '0')}`
-    }
 
-    function pad(n, c) {
-      return n < 10 ? c + n : n
+      function pad(n, c) {
+        return n < 10 ? c + n : n
+      }
     }
   }
 }

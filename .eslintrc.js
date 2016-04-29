@@ -30,7 +30,7 @@ module.exports = {
     "max-depth": ["error", 1],
     "max-len": ["error", 120],
     "max-params": ["error", 2],
-    "max-statements": ["error", 8],
+    "max-statements": ["error", 7],
     "no-else-return": ["error"],
     "no-extra-parens": ["error"],
     "no-shadow": ["error"],
