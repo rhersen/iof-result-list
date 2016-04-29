@@ -33,7 +33,7 @@ function getClass($classResult) {
       function lapTime(splitSeconds) {
         var lapSeconds = splitSeconds - prevSeconds
         prevSeconds = splitSeconds
-        return getTime(lapSeconds)
+        return getMmSs(lapSeconds)
       }
     }
 
@@ -44,19 +44,19 @@ function getClass($classResult) {
       }
 
       if (status === 'OK')
-        return getMmSs()
+        return getMmSs(totalSeconds)
 
       return statuses[status] || status
+    }
 
-      function getMmSs() {
-        var seconds = totalSeconds % 60
-        var minutes = (totalSeconds - seconds) / 60
-        return `${pad(minutes, '&#8199;')}:${pad(seconds, '0')}`
-      }
+    function getMmSs(totalSeconds) {
+      var seconds = totalSeconds % 60
+      var minutes = (totalSeconds - seconds) / 60
+      return `${pad(minutes, '&#8199;')}:${pad(seconds, '0')}`
+    }
 
-      function pad(n, c) {
-        return n < 10 ? c + n : n
-      }
+    function pad(n, c) {
+      return n < 10 ? c + n : n
     }
   }
 }
