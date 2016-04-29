@@ -1,19 +1,23 @@
 var map = require('lodash.map')
 
-var getResult = require('./getResult')
+var getClass = require('./getClass')
 
 module.exports = responseXml => {
   var root = document.getElementById('root')
 
   root.insertAdjacentHTML('beforeend', `<h1>${getEventName(responseXml)}</h1>`)
 
-  map(getResult(responseXml), value => {
+  var $classResults = responseXml.querySelectorAll('ClassResult')
+
+  for (var i = 0; i < $classResults.length; i++) {
+    var classResult = getClass($classResults.item(i))
+    
     root.insertAdjacentHTML('beforeend',
       `<table>
-         <caption>${value.name}</caption>
-         <tbody>${getPersons(value.persons)}</tbody>
+         <caption>${classResult.name}</caption>
+         <tbody>${getPersons(classResult.persons)}</tbody>
        </table>`)
-  })
+  }
 
   function getEventName(doc) {
     var $name = doc.querySelector('Event > Name')

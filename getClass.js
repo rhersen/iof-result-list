@@ -1,14 +1,9 @@
-var assign = require('lodash.assign')
 var map = require('lodash.map')
 
-module.exports = doc => assign.apply(assign, map(doc.querySelectorAll('ClassResult'), getClass))
-
-function getClass($classResult) {
+module.exports = function ($classResult) {
   return {
-    [$classResult.querySelector('Class Id').textContent]: {
-      name: $classResult.querySelector('Class Name').textContent,
-      persons: map($classResult.querySelectorAll('PersonResult'), getPerson)
-    }
+    name: $classResult.querySelector('Class Name').textContent,
+    persons: map($classResult.querySelectorAll('PersonResult'), getPerson)
   }
 
   function getPerson($person) {
