@@ -27,14 +27,7 @@ function getClass($classResult) {
     }
 
     function getSplits(splits) {
-      var prevSeconds = 0
-      return map(map(splits, 'textContent'), lapTime)
-
-      function lapTime(splitSeconds) {
-        var lapSeconds = splitSeconds - prevSeconds
-        prevSeconds = splitSeconds
-        return getMmSs(lapSeconds)
-      }
+      return map(map(splits, 'textContent'), getMmSs)
     }
 
     function getTime(totalSeconds, status = 'OK') {
