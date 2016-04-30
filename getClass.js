@@ -2,8 +2,8 @@ var map = require('lodash.map')
 
 module.exports = function ($classResult) {
   return {
-    name: getTextContent($classResult, 'Class Name'),
-    persons: map($classResult.querySelectorAll('PersonResult'), getPerson)
+    Name: getTextContent($classResult, 'Class Name'),
+    PersonResults: map($classResult.querySelectorAll('PersonResult'), getPerson)
   }
 
   function getPerson($person) {

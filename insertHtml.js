@@ -2,6 +2,7 @@ var map = require('lodash.map')
 var forEach = require('lodash.foreach')
 
 var getClass = require('./getClass')
+var calculate = require('./calculate')
 
 module.exports = responseXml => {
   var root = document.getElementById('root')
@@ -9,7 +10,7 @@ module.exports = responseXml => {
   root.insertAdjacentHTML('beforeend', `<h1>${getEventName(responseXml)}</h1>`)
 
   forEach(responseXml.querySelectorAll('ClassResult'), classDom => {
-    root.insertAdjacentHTML('beforeend', classHtml(getClass(classDom)))
+    root.insertAdjacentHTML('beforeend', classHtml(calculate(getClass(classDom))))
   })
 
   function getEventName(doc) {
