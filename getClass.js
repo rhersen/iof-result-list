@@ -2,23 +2,20 @@ var map = require('lodash.map')
 
 module.exports = function ($classResult) {
   return {
-    name: $classResult.querySelector('Class Name').textContent,
+    name: getTextContent($classResult, 'Class Name'),
     persons: map($classResult.querySelectorAll('PersonResult'), getPerson)
   }
 
   function getPerson($person) {
-    var $time = $person.querySelector('Result > Time')
-    var $position = $person.querySelector('Result > Position')
-
     return {
       name: map(['Given', 'Family'], getNameField).join(' '),
-      position: $position && $position.textContent,
-      time: getTime($time && $time.textContent, $person.querySelector('Result > Status').textContent),
+      position: getTextContent($person, 'Result > Position'),
+      time: getTime(getTextContent($person, 'Result > Time'), getTextContent($person, 'Result > Status')),
       splits: getSplits($person.querySelectorAll('Result > SplitTime > Time'))
     }
 
     function getNameField(field) {
-      return $person.querySelector(`Person > Name > ${field}`).textContent
+      return getTextContent($person, `Person > Name > ${field}`)
     }
 
     function getSplits(splits) {
@@ -27,8 +24,8 @@ module.exports = function ($classResult) {
 
     function getTime(totalSeconds, status = 'OK') {
       var statuses = {
-        MissingPunch: 'felst.',
-        DidNotStart: 'ej start'
+        MissingPunch: 'felst',
+        DidNotStart: 'dns'
       }
 
       if (status === 'OK')
@@ -46,6 +43,11 @@ module.exports = function ($classResult) {
         return n < 10 ? c + n : n
       }
     }
+  }
+
+  function getTextContent(parent, selector) {
+    var element = parent.querySelector(selector)
+    return element ? element.textContent : ' '
   }
 }
 
