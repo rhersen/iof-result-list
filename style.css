@@ -35,6 +35,14 @@ and (orientation: portrait) {
     width: 100%;
   }
 
+  col.position {
+    width: 10%;
+  }
+
+  col.name {
+    width: 70%;
+  }
+
   td {
     padding-left: 12px;
     padding-right: 12px;

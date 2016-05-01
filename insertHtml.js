@@ -20,9 +20,13 @@ function getEventName(doc) {
 
 function classHtml(classResult) {
   return `<table>
-              <caption>${classResult.name}</caption>
-              <tbody>${getPersons(classResult.persons)}</tbody>
-            </table>`
+            <colgroup>
+              <col class="position" />
+              <col class="name" />
+            </colgroup>
+            <caption>${classResult.name}</caption>
+            <tbody>${getPersons(classResult.persons)}</tbody>
+          </table>`
 }
 
 function getPersons(persons) {
