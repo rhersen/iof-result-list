@@ -9,7 +9,7 @@ function calculate(raw) {
 
 function getPerson(raw) {
   return {
-    name: raw.Given,
+    name: `${raw.Given} ${raw.Family}`,
     position: raw.Position,
     time: getMmSs(raw.Time),
     splits: raw.splits

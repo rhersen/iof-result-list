@@ -11,9 +11,9 @@ describe('calculate', function () {
     result.persons.should.be.an('array').that.is.empty
   })
 
-  it('passes through Given', function () {
-    var result = calculate({PersonResults: [{Given: 'Robert'}]})
-    result.persons[0].name.should.equal('Robert')
+  it('concatenates Given with Family', function () {
+    var result = calculate({PersonResults: [{Given: 'Robert', Family: 'Robertsson'}]})
+    result.persons[0].name.should.equal('Robert Robertsson')
   })
 
   it('passes through Position', function () {
