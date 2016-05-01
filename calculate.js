@@ -11,11 +11,12 @@ function getPerson(raw) {
   return {
     name: raw.Given,
     position: raw.Position,
-    time: getTime(raw.Time, raw.Status),
-    splits: map(raw.splits, getMmSs)
+    time: getMmSs(raw.Time),
+    splits: raw.splits
   }
 }
 
+/*
 function getTime(totalSeconds, status = 'OK') {
   var statuses = {
     MissingPunch: 'felst',
@@ -27,11 +28,12 @@ function getTime(totalSeconds, status = 'OK') {
 
   return statuses[status] || status
 }
+*/
 
 function getMmSs(totalSeconds) {
   var seconds = totalSeconds % 60
   var minutes = (totalSeconds - seconds) / 60
-  return `${pad(minutes, '&#8199;')}:${pad(seconds, '0')}`
+  return `${minutes}:${pad(seconds, '0')}`
 
   function pad(n, c) {
     return n < 10 ? c + n : n
