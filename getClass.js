@@ -21,7 +21,9 @@ module.exports = function ($classResult) {
 
   function getTextContent(parent, selector) {
     var element = parent.querySelector(selector)
-    return element ? element.textContent : ' '
+
+    if (element)
+      return element.textContent
   }
 }
 

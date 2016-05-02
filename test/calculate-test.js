@@ -36,14 +36,17 @@ describe('calculate', function () {
     result.persons[0].time.should.equal('felst')
   })
 
-  it('passes through splits', function () {
+  it('calculates lap times for two splits', function () {
     var result = calculate({
-      PersonResults: [{
-        Time: '2182.0',
-        splits: ['536.0', '851.0', '1224.0', '1561.0', '1903.0', '2164.0']
-      }]
+      PersonResults: [{Time: '190.0', splits: ['90.0', '150.0']}]
     })
-    result.persons[0].splits
-      .should.deep.equal(['536.0', '851.0', '1224.0', '1561.0', '1903.0', '2164.0'])
+    result.persons[0].splits.should.deep.equal([90, 60, 40])
+  })
+
+  it('calculates lap times for missing punch', function () {
+    var result = calculate({
+      PersonResults: [{Status: 'MissingPunch', splits: ['90.0', '150.0']}]
+    })
+    result.persons[0].splits.should.deep.equal([90, 60])
   })
 })

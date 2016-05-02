@@ -12,7 +12,7 @@ function getPerson(raw) {
     name: `${raw.Given} ${raw.Family}`,
     position: raw.Position,
     time: getTime(raw.Time, raw.Status),
-    splits: raw.splits
+    splits: raw.splits && getLaps(raw.splits, raw.Time)
   }
 }
 
@@ -24,6 +24,18 @@ function getTime(totalSeconds, status = 'OK') {
     return 'felst'
 
   return status
+}
+
+function getLaps(splits, total) {
+  var laps = [parseFloat(splits[0])]
+
+  for (var i = 1; i < splits.length; i++)
+    laps.push(splits[i] - splits[i - 1])
+
+  if (total)
+    laps.push(total - splits[i - 1])
+
+  return laps
 }
 
 function getMmSs(totalSeconds) {
