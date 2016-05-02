@@ -1,9 +1,27 @@
+var forEach = require('lodash.foreach')
 var map = require('lodash.map')
+var min = require('lodash.min')
 
 function calculate(raw) {
+  var persons = map(raw.PersonResults, getPerson)
+  var best = []
+
+  if (persons[0] && persons[0].splits) {
+    best = map(persons[0].splits, getBest)
+    forEach(persons, person => forEach(person.splits, setBest))
+  }
+
   return {
     name: raw.Name,
-    persons: map(raw.PersonResults, getPerson)
+    persons: persons
+  }
+
+  function getBest(lap, i) {
+    return min(map(persons, person => person.splits[i] && person.splits[i].time))
+  }
+
+  function setBest(lap, i) {
+    lap.best = lap.time === best[i]
   }
 }
 
@@ -27,13 +45,13 @@ function getTime(totalSeconds, status = 'OK') {
 }
 
 function getLaps(splits, total) {
-  var laps = [parseFloat(splits[0])]
+  var laps = [{time: parseFloat(splits[0])}]
 
   for (var i = 1; i < splits.length; i++)
-    laps.push(splits[i] - splits[i - 1])
+    laps.push({time: splits[i] - splits[i - 1]})
 
   if (total)
-    laps.push(total - splits[i - 1])
+    laps.push({time: total - splits[i - 1]})
 
   return laps
 }

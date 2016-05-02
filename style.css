@@ -24,6 +24,10 @@ and (orientation: landscape) {
         display: table-cell;
     }
 
+    td.best {
+        background-color: #88ff88;
+    }
+
     td.total {
         font-weight: bold;
     }

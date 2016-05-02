@@ -1,3 +1,4 @@
+var classnames = require('classnames')
 var map = require('lodash.map')
 var forEach = require('lodash.foreach')
 
@@ -44,7 +45,8 @@ function getPersons(persons) {
       return map(splits, getSplit).join('')
 
       function getSplit(split) {
-        return `<td class="split">${split}</td>`
+        var classNames = {split: true, best: split.best}
+        return `<td class="${classnames(classNames)}">${split.time}</td>`
       }
     }
   }

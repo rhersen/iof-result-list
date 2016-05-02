@@ -40,13 +40,36 @@ describe('calculate', function () {
     var result = calculate({
       PersonResults: [{Time: '190.0', splits: ['90.0', '150.0']}]
     })
-    result.persons[0].splits.should.deep.equal([90, 60, 40])
+    result.persons[0].splits.should.deep.equal([
+      {time: 90, best: true},
+      {time: 60, best: true},
+      {time: 40, best: true}])
+  })
+
+  it('calculates best lap times', function () {
+    var result = calculate({
+      PersonResults: [
+        {Time: '190.0', splits: ['90.0', '151.0']},
+        {Time: '190.0', splits: ['91.0', '150.0']}]
+    })
+    result.persons[0].splits.should.deep.equal([
+      {time: 90, best: true},
+      {time: 61, best: false},
+      {time: 39, best: true}])
+    result.persons[1].splits.should.deep.equal([
+      {time: 91, best: false},
+      {time: 59, best: true},
+      {time: 40, best: false}])
   })
 
   it('calculates lap times for missing punch', function () {
     var result = calculate({
-      PersonResults: [{Status: 'MissingPunch', splits: ['90.0', '150.0']}]
+      PersonResults: [
+        {Time: '190.0', splits: ['90.0', '151.0']},
+        {Status: 'MissingPunch', splits: ['90.0', '150.0']}]
     })
-    result.persons[0].splits.should.deep.equal([90, 60])
+    result.persons[1].splits.should.deep.equal([
+      {time: 90, best: true},
+      {time: 60, best: true}])
   })
 })
