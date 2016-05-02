@@ -1,58 +1,58 @@
 body {
-  font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
 
 td {
-  border-top: solid #ddd 1pt;
-  text-align: right;
+    border-top: solid #ddd 1pt;
+    text-align: right;
 }
 
 caption {
-  background-color: #ddd;
-  font-weight: bold;
+    background-color: #ddd;
+    font-weight: bold;
 }
 
 @media only screen
 and (orientation: landscape) {
-  td {
-    padding-left: 1px;
-    padding-right: 1px;
-    font-size: 12px;
-  }
+    td {
+        padding-left: 1px;
+        padding-right: 1px;
+        font-size: 12px;
+    }
 
-  td.split {
-    display: table-cell;
-  }
+    td.split {
+        display: table-cell;
+    }
 
-  td.total {
-    font-weight: bold;
-  }
+    td.total {
+        font-weight: bold;
+    }
 }
 
 @media only screen
 and (orientation: portrait) {
-  table {
-    width: 100%;
-  }
+    table {
+        width: 100%;
+    }
 
-  col.position {
-    width: 10%;
-  }
+    col.position {
+        width: 10%;
+    }
 
-  col.name {
-    width: 70%;
-  }
+    col.name {
+        width: 70%;
+    }
 
-  td {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
+    td {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
 
-  td.split {
-    display: none;
-  }
+    td.split {
+        display: none;
+    }
 
-  td.name {
-    text-align: left;
-  }
+    td.name {
+        text-align: left;
+    }
 }
