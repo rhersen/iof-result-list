@@ -27,8 +27,13 @@ describe('calculate', function () {
   })
 
   it('converts Time from seconds to mm:ss', function () {
-    var result = calculate({PersonResults: [{Time: '1222.0'}]})
+    var result = calculate({PersonResults: [{Status: 'OK', Time: '1222.0'}]})
     result.persons[0].time.should.equal('20:22')
+  })
+
+  it('missing punch', function () {
+    var result = calculate({PersonResults: [{Status: 'MissingPunch'}]})
+    result.persons[0].time.should.equal('felst')
   })
 
   it('passes through splits', function () {

@@ -11,24 +11,20 @@ function getPerson(raw) {
   return {
     name: `${raw.Given} ${raw.Family}`,
     position: raw.Position,
-    time: getMmSs(raw.Time),
+    time: getTime(raw.Time, raw.Status),
     splits: raw.splits
   }
 }
 
-/*
 function getTime(totalSeconds, status = 'OK') {
-  var statuses = {
-    MissingPunch: 'felst',
-    DidNotStart: 'dns'
-  }
-
   if (status === 'OK')
     return getMmSs(totalSeconds)
 
-  return statuses[status] || status
+  if (status === 'MissingPunch')
+    return 'felst'
+
+  return status
 }
-*/
 
 function getMmSs(totalSeconds) {
   var seconds = totalSeconds % 60
