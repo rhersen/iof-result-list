@@ -8,7 +8,7 @@ function calculate(raw) {
 
   if (persons[0] && persons[0].splits) {
     best = map(persons[0].splits, getBest)
-    forEach(persons, person => forEach(person.splits, setBest))
+    forEach(persons.filter(p => p.ok), p => forEach(p.splits, setBest))
   }
 
   return {
@@ -30,6 +30,7 @@ function getPerson(raw) {
     name: `${raw.Given} ${raw.Family}`,
     position: raw.Position,
     time: getTime(raw.Time, raw.Status),
+    ok: raw.Status === 'OK' || !raw.Status,
     splits: raw.splits && getLaps(raw.splits, raw.Time)
   }
 }

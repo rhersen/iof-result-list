@@ -68,8 +68,6 @@ describe('calculate', function () {
         {Time: '190.0', splits: ['90.0', '151.0']},
         {Status: 'MissingPunch', splits: ['90.0', '150.0']}]
     })
-    result.persons[1].splits.should.deep.equal([
-      {time: 90, best: true},
-      {time: 60, best: true}])
+    result.persons[1].splits.should.deep.equal([{time: 90}, {time: 60}])
   })
 })
