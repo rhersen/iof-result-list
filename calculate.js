@@ -21,7 +21,8 @@ function calculate(raw) {
   }
 
   function setBest(lap, i) {
-    lap.best = lap.time === best[i]
+    if (lap.time === best[i])
+      lap.best = true
   }
 }
 

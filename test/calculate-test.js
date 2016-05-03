@@ -54,12 +54,12 @@ describe('calculate', function () {
     })
     result.persons[0].splits.should.deep.equal([
       {time: 90, best: true},
-      {time: 61, best: false},
+      {time: 61},
       {time: 39, best: true}])
     result.persons[1].splits.should.deep.equal([
-      {time: 91, best: false},
+      {time: 91},
       {time: 59, best: true},
-      {time: 40, best: false}])
+      {time: 40}])
   })
 
   it('calculates lap times for missing punch', function () {
