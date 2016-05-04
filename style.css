@@ -28,6 +28,10 @@ and (orientation: landscape) {
         background-color: #88ff88;
     }
 
+    td.mistake {
+        background-color: #ffaaaa;
+    }
+
     td.total {
         font-weight: bold;
     }

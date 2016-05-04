@@ -45,8 +45,8 @@ function getPersons(persons) {
       return map(splits, getSplit).join('')
 
       function getSplit(split) {
-        var classNames = {split: true, best: split.best}
-        return `<td class="${classnames(classNames)}">${split.time}</td>`
+        var classNames = {split: true, best: split.best, mistake: split.mistake}
+        return `<td class="${classnames(classNames)}">${split.mmSs}</td>`
       }
     }
   }
