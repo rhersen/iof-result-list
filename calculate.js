@@ -80,7 +80,9 @@ function getPerson(raw) {
 
 function setMistakes(person) {
   var ratios = map(person.splits, 'ratio')
-  var median = ratios.sort()[Math.floor(ratios.length / 2)]
+  ratios.sort()
+  var l = ratios.length
+  var median = l % 2 ? ratios[(l - 1) / 2] : (ratios[l / 2 - 1] + ratios[l / 2]) / 2
 
   forEach(person.splits, split => {
     if (split.ratio > median * 1.2) split.mistake = true

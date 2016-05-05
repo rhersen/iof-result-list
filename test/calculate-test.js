@@ -93,6 +93,38 @@ describe('calculate', function () {
     expect(result.persons[1].splits[2].mistake).to.not.be.ok
   })
 
+  it('calculates median correctly', function () {
+    var result = calculate({
+      PersonResults: [
+        {Time: '400.0', splits: ['100.0', '200.0', '300.0']},
+        {Time: '480.0', splits: ['100.0', '200.0', '330.0']}]
+    })
+    expect(result.persons[0].splits[0].mistake).to.not.be.ok
+    expect(result.persons[0].splits[0].time).to.equal(100)
+    expect(result.persons[0].splits[0].ratio).to.equal(1)
+    expect(result.persons[0].splits[1].mistake).to.not.be.ok
+    expect(result.persons[0].splits[1].time).to.equal(100)
+    expect(result.persons[0].splits[1].ratio).to.equal(1)
+    expect(result.persons[0].splits[2].mistake).to.not.be.ok
+    expect(result.persons[0].splits[2].time).to.equal(100)
+    expect(result.persons[0].splits[2].ratio).to.equal(1)
+    expect(result.persons[0].splits[3].mistake).to.not.be.ok
+    expect(result.persons[0].splits[3].time).to.equal(100)
+    expect(result.persons[0].splits[3].ratio).to.equal(1)
+    expect(result.persons[1].splits[0].mistake).to.not.be.ok
+    expect(result.persons[1].splits[0].time).to.equal(100)
+    expect(result.persons[1].splits[0].ratio).to.equal(1)
+    expect(result.persons[1].splits[1].mistake).to.not.be.ok
+    expect(result.persons[1].splits[1].time).to.equal(100)
+    expect(result.persons[1].splits[1].ratio).to.equal(1)
+    expect(result.persons[1].splits[2].mistake).to.not.be.ok
+    expect(result.persons[1].splits[2].time).to.equal(130)
+    expect(result.persons[1].splits[2].ratio).to.equal(1.3)
+    expect(result.persons[1].splits[3].mistake).to.be.ok
+    expect(result.persons[1].splits[3].time).to.equal(150)
+    expect(result.persons[1].splits[3].ratio).to.equal(1.5)
+  })
+
   it('calculates lap times for missing punch', function () {
     var result = calculate({
       PersonResults: [
