@@ -11,6 +11,7 @@ function calculate(raw) {
   if (first) {
     var okPersons = filter(persons, 'ok')
     var best = map(first.splits, getBest)
+
     forEach(okPersons, p => forEach(p.splits, setBest))
     forEach(okPersons, setMistakes)
   }
@@ -21,7 +22,7 @@ function calculate(raw) {
   }
 
   function getBest(lap, i) {
-    return min(map(okPersons, person => person.splits[i] && person.splits[i].time))
+    return min(map(okPersons, person => person.splits[i].time))
   }
 
   function setBest(lap, i) {
@@ -64,12 +65,16 @@ function getPerson(raw) {
   }
 
   function getLap(seconds) {
-    return {time: seconds, mmSs: getMmSs(seconds)}
+    return {
+      time: seconds,
+      mmSs: getMmSs(seconds)
+    }
   }
 
   function getMmSs(totalSeconds) {
     var seconds = totalSeconds % 60
     var minutes = (totalSeconds - seconds) / 60
+
     return `${minutes}:${pad(seconds, '0')}`
   }
 
@@ -80,13 +85,23 @@ function getPerson(raw) {
 
 function setMistakes(person) {
   var ratios = map(person.splits, 'ratio')
-  ratios.sort()
-  var l = ratios.length
-  var median = l % 2 ? ratios[(l - 1) / 2] : (ratios[l / 2 - 1] + ratios[l / 2]) / 2
+  var median = getMedian(ratios)
 
   forEach(person.splits, split => {
-    if (split.ratio > median * 1.2) split.mistake = true
+    if (split.ratio > median * 1.2)
+      split.mistake = true
   })
+
+  function getMedian(a) {
+    var l = a.length
+
+    a.sort()
+
+    if (l % 2)
+      return a[(l - 1) / 2]
+
+    return (a[l / 2 - 1] + a[l / 2]) / 2
+  }
 }
 
 module.exports = calculate
