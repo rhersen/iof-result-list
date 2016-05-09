@@ -39,7 +39,7 @@ function getPerson(raw) {
     position: raw.Position,
     time: getTime(raw.Time, raw.Status),
     ok: raw.Status === 'OK' || !raw.Status,
-    splits: raw.splits && getLaps(raw.splits, raw.Time)
+    splits: raw.splits && getLaps(raw.Time ? raw.splits.concat(raw.Time) : raw.splits)
   }
 
   function getTime(totalSeconds, status = 'OK') {
@@ -52,16 +52,15 @@ function getPerson(raw) {
     return status
   }
 
-  function getLaps(splits, total) {
-    var diffs = [splits[0] - 0]
+  function getLaps(splits) {
+    var prev = 0
+    return map(map(splits, getDiff), getLap)
 
-    for (var i = 1; i < splits.length; i++)
-      diffs.push(splits[i] - splits[i - 1])
-
-    if (total)
-      diffs.push(total - splits[i - 1])
-
-    return map(diffs, getLap)
+    function getDiff(current) {
+      var diff = current - prev
+      prev = current
+      return diff
+    }
   }
 
   function getLap(seconds) {
