@@ -53,15 +53,15 @@ function getPerson(raw) {
   }
 
   function getLaps(splits, total) {
-    var laps = [getLap(parseFloat(splits[0]))]
+    var diffs = [splits[0] - 0]
 
     for (var i = 1; i < splits.length; i++)
-      laps.push(getLap(splits[i] - splits[i - 1]))
+      diffs.push(splits[i] - splits[i - 1])
 
     if (total)
-      laps.push(getLap(total - splits[i - 1]))
+      diffs.push(total - splits[i - 1])
 
-    return laps
+    return map(diffs, getLap)
   }
 
   function getLap(seconds) {

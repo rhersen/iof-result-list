@@ -133,6 +133,7 @@ describe('calculate', function () {
     })
     expect(result.persons[1].splits[0].time).to.equal(90)
     expect(result.persons[1].splits[0].best).to.not.be.ok
+    expect(result.persons[1].splits.length).to.equal(2)
     expect(result.persons[1].splits[1].time).to.equal(60)
     expect(result.persons[1].splits[1].best).to.not.be.ok
   })
