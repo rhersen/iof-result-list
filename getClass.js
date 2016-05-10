@@ -1,25 +1,26 @@
 var map = require('lodash.map')
+var reject = require('lodash.reject')
 
 module.exports = function ($classResult) {
   var personResults = map($classResult.querySelectorAll('PersonResult'), getPerson)
 
   return {
-    Name: getTextContent($classResult, 'Class > Name'),
-    PersonResults: personResults.filter(p => p.Status !== 'DidNotStart')
+    Name: text($classResult, 'Class > Name'),
+    PersonResults: reject(personResults, {Status: 'DidNotStart'})
   }
 
   function getPerson($person) {
     return {
-      Given: getTextContent($person, 'Person > Name > Given'),
-      Family: getTextContent($person, 'Person > Name > Family'),
-      Position: getTextContent($person, 'Result > Position'),
-      Time: getTextContent($person, 'Result > Time'),
-      Status: getTextContent($person, 'Result > Status'),
+      Given: text($person, 'Person > Name > Given'),
+      Family: text($person, 'Person > Name > Family'),
+      Position: text($person, 'Result > Position'),
+      Time: text($person, 'Result > Time'),
+      Status: text($person, 'Result > Status'),
       splits: map($person.querySelectorAll('Result > SplitTime > Time'), 'textContent')
     }
   }
 
-  function getTextContent(parent, selector) {
+  function text(parent, selector) {
     var element = parent.querySelector(selector)
 
     if (element)
