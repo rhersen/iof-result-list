@@ -84,10 +84,10 @@ function getPerson(raw) {
 
 function setMistakes(person) {
   var ratios = map(person.splits, 'ratio')
-  var median = getMedian(ratios)
+  person.median = getMedian(ratios)
 
   forEach(person.splits, split => {
-    if (split.ratio > median * 1.2)
+    if (split.ratio / person.median > 1.2)
       split.mistake = true
   })
 

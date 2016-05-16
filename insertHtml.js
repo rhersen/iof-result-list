@@ -4,6 +4,7 @@ var forEach = require('lodash.foreach')
 
 var getClass = require('./getClass')
 var calculate = require('./calculate')
+var style = require('./splitStyle')
 
 module.exports = responseXml => {
   var root = document.getElementById('root')
@@ -14,6 +15,7 @@ module.exports = responseXml => {
     root.insertAdjacentHTML('beforeend', classHtml(calculate(getClass(classDom))))
   })
 }
+
 function getEventName(doc) {
   var $name = doc.querySelector('Event > Name')
   return $name && $name.textContent
@@ -46,7 +48,7 @@ function getPersons(persons) {
 
       function getSplit(split) {
         var classNames = {split: true, best: split.best, mistake: split.mistake}
-        return `<td class="${classnames(classNames)}">${split.mmSs}</td>`
+        return `<td class="split" style="${style(split, p.median)}">${split.mmSs}</td>`
       }
     }
   }
