@@ -29,7 +29,7 @@ module.exports = {
     "linebreak-style": ["error", "unix"],
     "max-depth": ["error", 2],
     "max-len": ["error", 87],
-    "max-params": ["error", 2],
+    "max-params": ["error", 5],
     "max-statements": ["error", 10],
     "no-else-return": ["error"],
     "no-extra-parens": ["error"],
