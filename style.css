@@ -12,6 +12,10 @@ caption {
     font-weight: bold;
 }
 
+section.orientation {
+    display: none;
+}
+
 @media only screen
 and (orientation: landscape) {
     td {
@@ -62,5 +66,13 @@ and (orientation: portrait) {
 
     td.name {
         text-align: left;
+    }
+}
+
+@media only screen
+and (max-device-width: 435px)
+and (orientation: portrait) {
+    section.orientation {
+        display: block;
     }
 }
