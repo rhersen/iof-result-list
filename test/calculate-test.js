@@ -31,6 +31,11 @@ describe('calculate', function () {
     expect(result.persons[0].time).to.equal('20:22')
   })
 
+  it('shows status if time is missing', function () {
+    var result = calculate({PersonResults: [{Status: 'OK'}]})
+    expect(result.persons[0].time).to.equal('OK')
+  })
+
   it('missing punch', function () {
     var result = calculate({PersonResults: [{Status: 'MissingPunch'}]})
     expect(result.persons[0].time).to.equal('felst')

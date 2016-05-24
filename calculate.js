@@ -43,7 +43,7 @@ function getPerson(raw) {
   }
 
   function getTime(totalSeconds, status = 'OK') {
-    if (status === 'OK')
+    if (status === 'OK' && totalSeconds)
       return getMmSs(totalSeconds)
 
     if (status === 'MissingPunch')
