@@ -12,7 +12,8 @@ module.exports = responseXml => {
   root.insertAdjacentHTML('beforeend', `<h1>${getEventName(responseXml)}</h1>`)
 
   forEach(responseXml.querySelectorAll('ClassResult'), classDom => {
-    root.insertAdjacentHTML('beforeend', classHtml(calculate(getClass(classDom))))
+    var cls = getClass(classDom)
+    if (cls) root.insertAdjacentHTML('beforeend', classHtml(calculate(cls)))
   })
 }
 

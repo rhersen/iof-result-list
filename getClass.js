@@ -2,11 +2,11 @@ var map = require('lodash.map')
 var reject = require('lodash.reject')
 
 module.exports = function ($classResult) {
-  var personResults = map($classResult.querySelectorAll('PersonResult'), getPerson)
+  var personResults = $classResult.querySelectorAll('PersonResult')
 
-  return {
+  if (personResults.length) return {
     Name: text($classResult, 'Class > Name'),
-    PersonResults: reject(personResults, {Status: 'DidNotStart'})
+    PersonResults: reject(map(personResults, getPerson), {Status: 'DidNotStart'})
   }
 
   function getPerson($person) {
