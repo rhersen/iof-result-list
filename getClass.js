@@ -5,6 +5,7 @@ module.exports = function ($classResult) {
   var personResults = $classResult.querySelectorAll('PersonResult')
 
   if (personResults.length) return {
+    Id: text($classResult, 'Class > Id'),
     Name: text($classResult, 'Class > Name'),
     PersonResults: reject(map(personResults, getPerson), {Status: 'DidNotStart'})
   }

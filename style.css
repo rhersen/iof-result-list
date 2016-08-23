@@ -12,6 +12,11 @@ caption {
     font-weight: bold;
 }
 
+a {
+    font-size: 24px;
+    margin: 12px;
+}
+
 section.orientation {
     display: none;
 }

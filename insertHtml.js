@@ -8,12 +8,22 @@ var style = require('./splitStyle')
 
 module.exports = responseXml => {
   var root = document.getElementById('root')
+  var hasId = /\?(\d+)/.exec(document.location.search)
+  var id = hasId && hasId[1]
 
-  root.insertAdjacentHTML('beforeend', `<h1>${getEventName(responseXml)}</h1>`)
+  if (!hasId)
+    root.insertAdjacentHTML('beforeend', `<h1>${getEventName(responseXml)}</h1>`)
 
   forEach(responseXml.querySelectorAll('ClassResult'), classDom => {
     var cls = getClass(classDom)
-    if (cls) root.insertAdjacentHTML('beforeend', classHtml(calculate(cls)))
+
+    if (!cls)
+      return
+
+    if (!hasId)
+      root.insertAdjacentHTML('beforeend', ` <a href="?${cls.Id}">${cls.Name}</a>`)
+    else if (cls.Id === id)
+      root.insertAdjacentHTML('beforeend', classHtml(calculate(cls)))
   })
 }
 
@@ -23,12 +33,12 @@ function getEventName(doc) {
 }
 
 function classHtml(classResult) {
-  return `<table>
+  return `<h1>${classResult.name}<a href="?">Välj annan klass</a></h1>
+          <table>
             <colgroup>
               <col class="position" />
               <col class="name" />
             </colgroup>
-            <caption>${classResult.name}</caption>
             <tbody>${getPersons(classResult.persons)}</tbody>
           </table>`
 }
