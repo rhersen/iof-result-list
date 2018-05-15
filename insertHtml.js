@@ -1,21 +1,20 @@
-var classnames = require('classnames')
-var map = require('lodash.map')
-var forEach = require('lodash.foreach')
+const map = require('lodash.map')
+const forEach = require('lodash.foreach')
 
-var getClass = require('./getClass')
-var calculate = require('./calculate')
-var style = require('./splitStyle')
+const getClass = require('./getClass')
+const calculate = require('./calculate')
+const style = require('./splitStyle')
 
 module.exports = responseXml => {
-  var root = document.getElementById('root')
-  var hasId = /\?(\d+)/.exec(document.location.search)
-  var id = hasId && hasId[1]
+  const root = document.getElementById('root')
+  const hasId = /\?(\d+)/.exec(document.location.search)
+  const id = hasId && hasId[1]
 
   if (!hasId)
     root.insertAdjacentHTML('beforeend', `<h1>${getEventName(responseXml)}</h1>`)
 
   forEach(responseXml.querySelectorAll('ClassResult'), classDom => {
-    var cls = getClass(classDom)
+    const cls = getClass(classDom)
 
     if (!cls)
       return
@@ -28,7 +27,7 @@ module.exports = responseXml => {
 }
 
 function getEventName(doc) {
-  var $name = doc.querySelector('Event > Name')
+  const $name = doc.querySelector('Event > Name')
   return $name && $name.textContent
 }
 
@@ -58,7 +57,6 @@ function getPersons(persons) {
       return map(splits, getSplit).join('')
 
       function getSplit(split) {
-        var classNames = {split: true, best: split.best, mistake: split.mistake}
         return `<td class="split" style="${style(split, p.median)}">${split.mmSs}</td>`
       }
     }

@@ -1,5 +1,5 @@
 module.exports = callback => {
-  var request = new XMLHttpRequest()
+  const request = new XMLHttpRequest()
   request.open('GET', 'result.xml', true)
 
   request.onload = function () {
