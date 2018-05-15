@@ -1,14 +1,15 @@
-var map = require('lodash.map')
-var reject = require('lodash.reject')
+module.exports = function($classResult) {
+  const personResults = $classResult.querySelectorAll('PersonResult')
 
-module.exports = function ($classResult) {
-  var personResults = $classResult.querySelectorAll('PersonResult')
-
-  if (personResults.length) return {
-    Id: text($classResult, 'Class > Id'),
-    Name: text($classResult, 'Class > Name'),
-    PersonResults: reject(map(personResults, getPerson), {Status: 'DidNotStart'})
-  }
+  if (personResults.length)
+    return {
+      Id: text($classResult, 'Class > Id'),
+      Name: text($classResult, 'Class > Name'),
+      PersonResults: Array.prototype.filter.call(
+        Array.prototype.map.call(personResults, getPerson),
+        person => person.Status !== 'DidNotStart'
+      ),
+    }
 
   function getPerson($person) {
     return {
@@ -17,15 +18,16 @@ module.exports = function ($classResult) {
       Position: text($person, 'Result > Position'),
       Time: text($person, 'Result > Time'),
       Status: text($person, 'Result > Status'),
-      splits: map($person.querySelectorAll('Result > SplitTime > Time'), 'textContent')
+      splits: Array.prototype.map.call(
+        $person.querySelectorAll('Result > SplitTime > Time'),
+        time => time.textContent
+      ),
     }
   }
 
   function text(parent, selector) {
-    var element = parent.querySelector(selector)
+    const element = parent.querySelector(selector)
 
-    if (element)
-      return element.textContent
+    if (element) return element.textContent
   }
 }
-
