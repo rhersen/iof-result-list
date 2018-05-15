@@ -18,7 +18,7 @@
     "chai": "^3.5.0",
     "classnames": "^2.2.5",
     "css-loader": "^0.23.1",
-    "eslint": "^2.9.0",
+    "eslint": "=4",
     "lodash.assign": "^4.0.8",
     "lodash.filter": "^4.3.0",
     "lodash.foreach": "^4.2.0",
@@ -28,6 +28,7 @@
     "lodash.min": "^4.0.0",
     "lodash.reject": "^4.3.0",
     "mocha": "^2.4.5",
+    "prettier": "^1.12.1",
     "style-loader": "^0.13.1",
     "webpack": "^1.12.9"
   }
