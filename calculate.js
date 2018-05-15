@@ -1,7 +1,6 @@
 const filter = require('lodash.filter')
 const forEach = require('lodash.foreach')
 const map = require('lodash.map')
-const min = require('lodash.min')
 
 function calculate(raw) {
   let okPersons
@@ -23,7 +22,8 @@ function calculate(raw) {
   }
 
   function getBest(lap, i) {
-    return min(map(okPersons, person => person.splits[i].time))
+    return map(okPersons, person => person.splits[i].time).reduce(
+      (t1, t2) => (t1 < t2 ? t1 : t2))
   }
 
   function setBest(lap, i) {
