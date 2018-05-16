@@ -1,5 +1,4 @@
 const filter = require('lodash.filter')
-const forEach = require('lodash.foreach')
 const map = require('lodash.map')
 
 function calculate(raw) {
@@ -12,8 +11,8 @@ function calculate(raw) {
     okPersons = filter(persons, 'ok')
     best = map(first.splits, getBest)
 
-    forEach(okPersons, p => forEach(p.splits, setBest))
-    forEach(okPersons, setMistakes)
+    okPersons.filter(p => p.splits).forEach(p => p.splits.forEach(setBest))
+    okPersons.forEach(setMistakes)
   }
 
   return {
@@ -23,7 +22,8 @@ function calculate(raw) {
 
   function getBest(lap, i) {
     return map(okPersons, person => person.splits[i].time).reduce(
-      (t1, t2) => (t1 < t2 ? t1 : t2))
+      (t1, t2) => (t1 < t2 ? t1 : t2)
+    )
   }
 
   function setBest(lap, i) {
@@ -86,9 +86,11 @@ function setMistakes(person) {
   const ratios = map(person.splits, 'ratio')
   person.median = getMedian(ratios)
 
-  forEach(person.splits, split => {
-    if (split.ratio / person.median > 1.2) split.mistake = true
-  })
+  if (person.splits) {
+    person.splits.forEach(split => {
+      if (split.ratio / person.median > 1.2) split.mistake = true
+    })
+  }
 
   function getMedian(a) {
     const l = a.length
