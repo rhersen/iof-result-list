@@ -10,18 +10,23 @@ module.exports = responseXml => {
   const id = hasId && hasId[1]
 
   if (!hasId)
-    root.insertAdjacentHTML('beforeend', `<h1>${getEventName(responseXml)}</h1>`)
+    root.insertAdjacentHTML(
+      'beforeend',
+      `<h1>${getEventName(responseXml)}</h1>`
+    )
 
   const classDoms = responseXml.querySelectorAll('ClassResult')
   for (let i = 0; i < classDoms.length; i++) {
-    const classDom = classDoms[i];
+    const classDom = classDoms[i]
     const cls = getClass(classDom)
 
-    if (!cls)
-      return
+    if (!cls) return
 
     if (!hasId)
-      root.insertAdjacentHTML('beforeend', ` <a href="?${cls.Id}">${cls.Name}</a>`)
+      root.insertAdjacentHTML(
+        'beforeend',
+        ` <a href="?${cls.Id}">${cls.Name}</a>`
+      )
     else if (cls.Id === id)
       root.insertAdjacentHTML('beforeend', classHtml(calculate(cls)))
   }
@@ -58,7 +63,9 @@ function getPersons(persons) {
       return map(splits, getSplit).join('')
 
       function getSplit(split) {
-        return `<td class="split" style="${style(split, p.median)}">${split.mmSs}</td>`
+        return `<td class="split" style="${style(split, p.median)}">${
+          split.mmSs
+        }</td>`
       }
     }
   }
