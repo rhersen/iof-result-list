@@ -1,4 +1,3 @@
-const filter = require('lodash.filter')
 const map = require('lodash.map')
 
 function calculate(raw) {
@@ -8,7 +7,7 @@ function calculate(raw) {
   const [first] = persons
 
   if (first) {
-    okPersons = filter(persons, 'ok')
+    okPersons = persons.filter(p => p.ok)
     best = map(first.splits, getBest)
 
     okPersons.filter(p => p.splits).forEach(p => p.splits.forEach(setBest))
