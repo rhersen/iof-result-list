@@ -19,7 +19,7 @@ module.exports = {
   "plugins": [
   ],
   "rules": {
-    "complexity": ["error", 4],
+    "complexity": ["error", 7],
     "max-depth": ["error", 2],
     "max-params": ["error", 5],
     "max-statements": ["error", 12],

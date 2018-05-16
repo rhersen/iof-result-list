@@ -1,5 +1,4 @@
 const map = require('lodash.map')
-const forEach = require('lodash.foreach')
 
 const getClass = require('./getClass')
 const calculate = require('./calculate')
@@ -13,7 +12,9 @@ module.exports = responseXml => {
   if (!hasId)
     root.insertAdjacentHTML('beforeend', `<h1>${getEventName(responseXml)}</h1>`)
 
-  forEach(responseXml.querySelectorAll('ClassResult'), classDom => {
+  const classDoms = responseXml.querySelectorAll('ClassResult')
+  for (let i = 0; i < classDoms.length; i++) {
+    const classDom = classDoms[i];
     const cls = getClass(classDom)
 
     if (!cls)
@@ -23,7 +24,7 @@ module.exports = responseXml => {
       root.insertAdjacentHTML('beforeend', ` <a href="?${cls.Id}">${cls.Name}</a>`)
     else if (cls.Id === id)
       root.insertAdjacentHTML('beforeend', classHtml(calculate(cls)))
-  })
+  }
 }
 
 function getEventName(doc) {
