@@ -1,14 +1,12 @@
-const map = require('lodash.map')
-
 function calculate(raw) {
   let okPersons
   let best
-  const persons = map(raw.PersonResults, getPerson)
+  const persons = raw.PersonResults ? raw.PersonResults.map(getPerson) : []
   const [first] = persons
 
   if (first) {
     okPersons = persons.filter(p => p.ok)
-    best = map(first.splits, getBest)
+    best = first.splits ? first.splits.map(getBest) : []
 
     okPersons.filter(p => p.splits).forEach(p => p.splits.forEach(setBest))
     okPersons.forEach(setMistakes)
@@ -20,9 +18,9 @@ function calculate(raw) {
   }
 
   function getBest(lap, i) {
-    return map(okPersons, person => person.splits[i].time).reduce(
-      (t1, t2) => (t1 < t2 ? t1 : t2)
-    )
+    return okPersons
+      .map(person => person.splits[i].time)
+      .reduce((t1, t2) => (t1 < t2 ? t1 : t2))
   }
 
   function setBest(lap, i) {
@@ -53,7 +51,7 @@ function getPerson(raw) {
 
   function getLaps(splits) {
     let prev = 0
-    return map(map(splits, getDiff), getLap)
+    return splits.map(getDiff).map(getLap)
 
     function getDiff(current) {
       const diff = current - prev
@@ -82,7 +80,7 @@ function getPerson(raw) {
 }
 
 function setMistakes(person) {
-  const ratios = map(person.splits, 'ratio')
+  const ratios = person.splits ? person.splits.map(p => p.ratio) : []
   person.median = getMedian(ratios)
 
   if (person.splits) {

@@ -18,7 +18,6 @@
     "chai": "^3.5.0",
     "css-loader": "^0.23.1",
     "eslint": "=4",
-    "lodash.map": "^4.3.0",
     "mocha": "^2.4.5",
     "prettier": "^1.12.1",
     "style-loader": "^0.13.1",

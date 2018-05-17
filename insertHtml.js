@@ -1,5 +1,3 @@
-const map = require('lodash.map')
-
 const getClass = require('./getClass')
 const calculate = require('./calculate')
 const style = require('./splitStyle')
@@ -49,7 +47,7 @@ function classHtml(classResult) {
 }
 
 function getPersons(persons) {
-  return map(persons, getPerson).join('')
+  return persons.map(getPerson).join('')
 
   function getPerson(p) {
     return `<tr>
@@ -60,7 +58,7 @@ function getPersons(persons) {
               </tr>`
 
     function getSplits(splits) {
-      return map(splits, getSplit).join('')
+      return splits.map(getSplit).join('')
 
       function getSplit(split) {
         return `<td class="split" style="${style(split, p.median)}">${
