@@ -1,16 +1,18 @@
-var filter = require('lodash.filter')
-var forEach = require('lodash.foreach')
-var head = require('lodash.head')
-var map = require('lodash.map')
-var min = require('lodash.min')
+const filter = require('lodash.filter')
+const forEach = require('lodash.foreach')
+const head = require('lodash.head')
+const map = require('lodash.map')
+const min = require('lodash.min')
 
 function calculate(raw) {
-  var persons = map(raw.PersonResults, getPerson)
-  var first = head(persons)
+  let best
+  let okPersons
+  const persons = map(raw.PersonResults, getPerson)
+  const first = head(persons)
 
   if (first) {
-    var okPersons = filter(persons, 'ok')
-    var best = map(first.splits, getBest)
+    okPersons = filter(persons, 'ok')
+    best = map(first.splits, getBest)
 
     forEach(okPersons, p => forEach(p.splits, setBest))
     forEach(okPersons, setMistakes)
@@ -53,11 +55,11 @@ function getPerson(raw) {
   }
 
   function getLaps(splits) {
-    var prev = 0
+    let prev = 0
     return map(map(splits, getDiff), getLap)
 
     function getDiff(current) {
-      var diff = current - prev
+      const diff = current - prev
       prev = current
       return diff
     }
@@ -71,8 +73,8 @@ function getPerson(raw) {
   }
 
   function getMmSs(totalSeconds) {
-    var seconds = totalSeconds % 60
-    var minutes = (totalSeconds - seconds) / 60
+    const seconds = totalSeconds % 60
+    const minutes = (totalSeconds - seconds) / 60
 
     return `${minutes}:${pad(seconds, '0')}`
   }
@@ -83,7 +85,7 @@ function getPerson(raw) {
 }
 
 function setMistakes(person) {
-  var ratios = map(person.splits, 'ratio')
+  const ratios = map(person.splits, 'ratio')
   person.median = getMedian(ratios)
 
   forEach(person.splits, split => {
@@ -92,7 +94,7 @@ function setMistakes(person) {
   })
 
   function getMedian(a) {
-    var l = a.length
+    const l = a.length
 
     a.sort()
 

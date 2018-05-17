@@ -1,8 +1,8 @@
-var map = require('lodash.map')
-var reject = require('lodash.reject')
+const map = require('lodash.map')
+const reject = require('lodash.reject')
 
 module.exports = function ($classResult) {
-  var personResults = $classResult.querySelectorAll('PersonResult')
+  const personResults = $classResult.querySelectorAll('PersonResult')
 
   if (personResults.length) return {
     Id: text($classResult, 'Class > Id'),
@@ -22,7 +22,7 @@ module.exports = function ($classResult) {
   }
 
   function text(parent, selector) {
-    var element = parent.querySelector(selector)
+    const element = parent.querySelector(selector)
 
     if (element)
       return element.textContent
