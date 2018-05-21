@@ -20,7 +20,7 @@ function calculate(raw) {
 
   return {
     name: raw.Name,
-    persons: persons
+    persons: persons,
   }
 
   function getBest(lap, i) {
@@ -28,8 +28,7 @@ function calculate(raw) {
   }
 
   function setBest(lap, i) {
-    if (lap.time === best[i])
-      lap.best = true
+    if (lap.time === best[i]) lap.best = true
 
     lap.ratio = lap.time / best[i]
   }
@@ -41,15 +40,15 @@ function getPerson(raw) {
     position: raw.Position,
     time: getTime(raw.Time, raw.Status),
     ok: raw.Status === 'OK' || !raw.Status,
-    splits: raw.splits && getLaps(raw.Time ? raw.splits.concat(raw.Time) : raw.splits)
+    splits:
+      raw.splits &&
+      getLaps(raw.Time ? raw.splits.concat(raw.Time) : raw.splits),
   }
 
   function getTime(totalSeconds, status = 'OK') {
-    if (status === 'OK' && totalSeconds)
-      return getMmSs(totalSeconds)
+    if (status === 'OK' && totalSeconds) return getMmSs(totalSeconds)
 
-    if (status === 'MissingPunch')
-      return 'felst'
+    if (status === 'MissingPunch') return 'felst'
 
     return status
   }
@@ -68,7 +67,7 @@ function getPerson(raw) {
   function getLap(seconds) {
     return {
       time: seconds,
-      mmSs: getMmSs(seconds)
+      mmSs: getMmSs(seconds),
     }
   }
 
@@ -89,8 +88,7 @@ function setMistakes(person) {
   person.median = getMedian(ratios)
 
   forEach(person.splits, split => {
-    if (split.ratio / person.median > 1.2)
-      split.mistake = true
+    if (split.ratio / person.median > 1.2) split.mistake = true
   })
 
   function getMedian(a) {
@@ -98,8 +96,7 @@ function setMistakes(person) {
 
     a.sort()
 
-    if (l % 2)
-      return a[(l - 1) / 2]
+    if (l % 2) return a[(l - 1) / 2]
 
     return (a[l / 2 - 1] + a[l / 2]) / 2
   }
