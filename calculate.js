@@ -1,7 +1,7 @@
+const { map } = require('./nodash')
 const filter = require('lodash.filter')
 const forEach = require('lodash.foreach')
 const head = require('lodash.head')
-const map = require('lodash.map')
 const min = require('lodash.min')
 
 function calculate(raw) {

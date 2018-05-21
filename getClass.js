@@ -1,4 +1,4 @@
-const map = require('lodash.map')
+const { map } = require('./nodash')
 const reject = require('lodash.reject')
 
 module.exports = function ($classResult) {
