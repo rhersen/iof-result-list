@@ -1,4 +1,4 @@
-const map = require('lodash.map')
+const { map } = require('./nodash')
 const forEach = require('lodash.foreach')
 
 const getClass = require('./getClass')
