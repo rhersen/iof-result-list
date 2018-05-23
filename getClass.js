@@ -1,5 +1,4 @@
-const { map } = require('./nodash')
-const reject = require('lodash.reject')
+const { map, reject } = require('./nodash')
 
 module.exports = function($classResult) {
   const personResults = $classResult.querySelectorAll('PersonResult')

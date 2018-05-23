@@ -1,16 +1,29 @@
 module.exports = {
   filter: (a = [], arg) => {
-    const f = typeof arg === 'string' ? e => e[arg] : arg
-    return a.filter ? a.filter(f) : Array.prototype.filter.call(a, f)
+    return withStringOrFunction('filter', a, arg)
   },
 
   forEach: (a = [], arg) => {
-    const f = typeof arg === 'string' ? e => e[arg] : arg
-    return a.forEach ? a.forEach(f) : Array.prototype.forEach.call(a, f)
+    withStringOrFunction('forEach', a, arg)
   },
 
   map: (a = [], arg) => {
-    const f = typeof arg === 'string' ? e => e[arg] : arg
-    return a.map ? a.map(f) : Array.prototype.map.call(a, f)
+    return withStringOrFunction('map', a, arg)
   },
+
+  min: (a = []) => {
+    return withFunction(a, 'reduce', (x, y) => (x < y ? x : y))
+  },
+
+  reject: (a = [], { k, v }) => {
+    return withFunction(a, 'filter', e => e[k] === v)
+  },
+}
+
+function withStringOrFunction(method, a, arg) {
+  return withFunction(a, method, typeof arg === 'string' ? e => e[arg] : arg)
+}
+
+function withFunction(a, method, f) {
+  return a[method] ? a[method](f) : Array.prototype[method].call(a, f)
 }

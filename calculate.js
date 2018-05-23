@@ -1,12 +1,10 @@
-const { filter, forEach, map } = require('./nodash')
-const head = require('lodash.head')
-const min = require('lodash.min')
+const { filter, forEach, map, min } = require('./nodash')
 
 function calculate(raw) {
   let best
   let okPersons
   const persons = map(raw.PersonResults, getPerson)
-  const first = head(persons)
+  const [first] = persons
 
   if (first) {
     okPersons = filter(persons, 'ok')
